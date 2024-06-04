@@ -1,7 +1,11 @@
 package me.project.kmparticle
 
-interface Platform {
-    val name: String
-}
+@Suppress("EXPECT_ACTUAL_CLASSIFIERS_ARE_IN_BETA_WARNING")
+expect class Platform{
+    val osName: String
+    val osVersion: String
+    val deviceModel: String
+    val density: Int
 
-expect fun getPlatform(): Platform
+    fun logSystemInfo()
+}
