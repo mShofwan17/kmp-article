@@ -18,11 +18,13 @@ class ArticlesViewModel : BaseViewModel() {
 
     private fun getArticles() {
         scope.launch {
+            delay(2500)
+            _articleState.emit(ArticleState(errorMsg = "Something's Wrong", loading = false))
             val fetchArticle = fetchArticles()
-            delay(800)
-            /*  _articleState.update {
-                  it.copy(articles = fetchArticle, loading = false)
-              }*/
+            delay(3000)
+            /*_articleState.update {
+                it.copy(articles = fetchArticle, loading = false)
+            }*/
             _articleState.emit(
                 ArticleState(
                     articles = fetchArticle,
