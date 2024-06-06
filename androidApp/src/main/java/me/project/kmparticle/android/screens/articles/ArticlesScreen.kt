@@ -31,7 +31,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
 import me.project.kmparticle.android.navigation.Screens
-import me.project.kmparticle.articles.Article
+import me.project.kmparticle.articles.models.Article
 import me.project.kmparticle.articles.ArticlesViewModel
 
 @Composable
@@ -93,10 +93,10 @@ fun ArticleItem(item: Article) {
             style = TextStyle(fontWeight = FontWeight.Bold, fontSize = 22.sp)
         )
         Spacer(modifier = Modifier.height(8.dp))
-        Text(text = item.desc)
+        Text(text = item.desc ?: "")
         Spacer(modifier = Modifier.height(4.dp))
         Text(
-            text = item.date,
+            text = item.date ?: "",
             style = TextStyle(color = Color.Gray),
             modifier = Modifier.align(Alignment.End)
         )
