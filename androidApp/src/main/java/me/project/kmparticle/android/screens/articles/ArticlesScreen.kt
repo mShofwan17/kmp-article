@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Info
@@ -23,6 +24,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -31,13 +33,14 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
 import me.project.kmparticle.android.navigation.Screens
-import me.project.kmparticle.articles.models.Article
 import me.project.kmparticle.articles.ArticlesViewModel
+import me.project.kmparticle.articles.models.Article
+import org.koin.androidx.compose.getViewModel
 
 @Composable
 fun ArticlesScreen(
-   navHostController: NavHostController,
-    viewModel: ArticlesViewModel
+    navHostController: NavHostController,
+    viewModel: ArticlesViewModel = getViewModel()
 ) {
     val articleState = viewModel.articleState.collectAsState()
 
@@ -86,7 +89,12 @@ fun ArticleItem(item: Article) {
             .fillMaxWidth()
             .padding(16.dp)
     ) {
-        AsyncImage(model = item.imageUrl, contentDescription = "imageUrl")
+        AsyncImage(
+            modifier = Modifier.fillMaxWidth(),
+            model = item.imageUrl,
+            contentScale = ContentScale.Crop,
+            contentDescription = "imageUrl"
+        )
         Spacer(modifier = Modifier.height(4.dp))
         Text(
             text = item.title,
