@@ -32,6 +32,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
+import com.google.accompanist.swiperefresh.SwipeRefresh
+import com.google.accompanist.swiperefresh.SwipeRefreshState
 import me.project.kmparticle.android.navigation.Screens
 import me.project.kmparticle.articles.ArticlesViewModel
 import me.project.kmparticle.articles.models.Article
@@ -46,11 +48,10 @@ fun ArticlesScreen(
 
     Column {
         AppBar(onAboutButton = { navHostController.navigate(Screens.ABOUT_DEVICE.route) })
-        if (articleState.value.loading) Loader()
         articleState.value.errorMsg?.let {
             ErrorMesssage(message = it)
         }
-        if (articleState.value.articles.isNotEmpty()) ArticleListView(articles = articleState.value.articles)
+        if (articleState.value.articles.isNotEmpty()) ArticleListView(viewModel)
 
     }
 }
@@ -71,15 +72,22 @@ private fun AppBar(
 }
 
 @Composable
-fun ArticleListView(articles: List<Article>) {
-    LazyColumn(
-        modifier = Modifier.fillMaxSize()
-    ) {
-        items(articles.size) {
-            val item = articles[it]
-            ArticleItem(item = item)
+fun ArticleListView(viewModel: ArticlesViewModel) {
+
+
+    SwipeRefresh(
+        state = SwipeRefreshState(viewModel.articleState.value.loading),
+        onRefresh = { viewModel.getArticles(true) }) {
+        LazyColumn(
+            modifier = Modifier.fillMaxSize()
+        ) {
+            items(viewModel.articleState.value.articles.size) {
+                val item = viewModel.articleState.value.articles[it]
+                ArticleItem(item = item)
+            }
         }
     }
+
 }
 
 @Composable
@@ -109,20 +117,6 @@ fun ArticleItem(item: Article) {
             modifier = Modifier.align(Alignment.End)
         )
         Spacer(modifier = Modifier.height(4.dp))
-    }
-}
-
-@Composable
-fun Loader() {
-    Box(
-        modifier = Modifier.fillMaxSize(),
-        contentAlignment = Alignment.Center
-    ) {
-        CircularProgressIndicator(
-            modifier = Modifier.width(64.dp),
-            color = MaterialTheme.colorScheme.surfaceVariant,
-            trackColor = MaterialTheme.colorScheme.secondary
-        )
     }
 }
 

@@ -1,6 +1,7 @@
 package me.project.kmparticle.android
 
 import android.app.Application
+import me.project.kmparticle.android.di.databaseModule
 import me.project.kmparticle.android.di.viewModelModule
 import me.project.kmparticle.di.sharedModule
 import org.koin.android.ext.koin.androidContext
@@ -13,7 +14,7 @@ class MainApplication : Application() {
     }
 
     private fun initKoin(){
-        val modules = sharedModule + viewModelModule
+        val modules = sharedModule + viewModelModule + databaseModule
         startKoin {
             androidContext(this@MainApplication)
             modules(modules)

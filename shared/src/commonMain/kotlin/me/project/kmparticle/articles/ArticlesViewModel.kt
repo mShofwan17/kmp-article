@@ -20,10 +20,13 @@ class ArticlesViewModel(
         getArticles()
     }
 
-    private fun getArticles() {
+    fun getArticles(forceFetch: Boolean = false) {
         scope.launch {
-            delay(2500)
-            val fetchArticle = getArticlesUseCase()
+            if (forceFetch) {
+                _articleState.update { it.copy(loading = true) }
+            }
+
+            val fetchArticle = getArticlesUseCase(forceFetch)
             _articleState.update {
                 it.copy(articles = fetchArticle, loading = false)
             }
