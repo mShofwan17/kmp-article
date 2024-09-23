@@ -1,5 +1,7 @@
 package me.project.kmparticle
 
+import platform.Foundation.NSLog
+
 
 //nanti dibenerin pas pake mac
 @Suppress("EXPECT_ACTUAL_CLASSIFIERS_ARE_IN_BETA_WARNING")
@@ -14,7 +16,7 @@ actual class Platform {
         get() = 0 //UISCreen.mainScreen.scale.toInt()
 
     actual fun logSystemInfo() {
-        //NSLog($osName, $osVersion, $deviceModel, $density)
+        NSLog("$osName, $osVersion, $deviceModel, $density")
     }
 
 }

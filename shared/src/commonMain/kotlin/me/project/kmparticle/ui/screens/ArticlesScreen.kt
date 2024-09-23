@@ -120,7 +120,7 @@ fun ArticleItem(item: Article) {
             .padding(16.dp)
     ) {
         KamelImage(
-            resource = asyncPainterResource(data = Url(item.imageUrl!!)),
+            resource = asyncPainterResource(data = Url(item.imageUrl ?: "")),
             contentDescription = "articleImage",
             contentScale = ContentScale.Crop
         )

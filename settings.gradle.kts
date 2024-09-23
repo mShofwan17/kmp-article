@@ -19,3 +19,4 @@ dependencyResolutionManagement {
 rootProject.name = "KMP_Article"
 include(":androidApp")
 include(":shared")
+include(":desktop")
