@@ -1,4 +1,4 @@
-package me.project.kmparticle.android.screens.about
+package me.project.kmparticle.ui.screens
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -17,18 +17,31 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavHostController
+import cafe.adriel.voyager.core.screen.Screen
+import cafe.adriel.voyager.navigator.LocalNavigator
+import cafe.adriel.voyager.navigator.currentOrThrow
 import me.project.kmparticle.Platform
 
+
+class AboutScreen : Screen {
+    @Composable
+    override fun Content() {
+        AboutScreenContent()
+    }
+}
+
 @Composable
-fun AboutScreen(
-    navHostController: NavHostController
-) {
+fun AboutScreenContent() {
+    val navigator = LocalNavigator.currentOrThrow
+
     Column {
-        Toolbar(onBackButton = { navHostController.popBackStack() })
+        Toolbar(
+            onBackButton = { navigator.pop() }
+        )
         ContentView()
     }
 }
+
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

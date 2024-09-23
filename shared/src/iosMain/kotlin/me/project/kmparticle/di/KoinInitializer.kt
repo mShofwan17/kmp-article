@@ -6,11 +6,15 @@ import org.koin.core.component.inject
 import org.koin.core.context.startKoin
 
 fun initKoin() {
+
     val modules = sharedModule + databaseModule
-    startKoin { modules(modules) }
+
+    startKoin {
+        modules(modules)
+    }
 }
 
+class ArticlesInjector : KoinComponent {
 
-class ArticleInjector : KoinComponent {
     val articlesViewModel: ArticlesViewModel by inject()
 }

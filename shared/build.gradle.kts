@@ -1,9 +1,10 @@
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidLibrary)
-    id("co.touchlab.skie") version "0.4.19"
     kotlin("plugin.serialization") version "1.9.20"
     alias(libs.plugins.sqlDelight)
+    alias(libs.plugins.composeMultiplatformPlugin)
+    alias(libs.plugins.compose.compiler)
 }
 
 kotlin {
@@ -22,7 +23,6 @@ kotlin {
     ).forEach {
         it.binaries.framework {
             baseName = "shared"
-            isStatic = true
         }
     }
 
@@ -35,6 +35,18 @@ kotlin {
             implementation(libs.kotlinx.datetime)
             implementation(libs.koin.core)
             implementation(libs.sql.coroutines.extensions)
+
+            implementation(compose.runtime)
+            implementation(compose.foundation)
+            implementation(compose.ui)
+            implementation(compose.components.resources)
+            implementation(compose.components.uiToolingPreview)
+            implementation(compose.material3)
+            implementation(libs.compose.material)
+            implementation(libs.koin.compose)
+            implementation(libs.kamel.image)
+            implementation(libs.voyager.navigator)
+            implementation(libs.voyager.transition)
         }
 
         androidMain.dependencies {
@@ -68,9 +80,9 @@ android {
     }
 }
 
-sqldelight{
-    databases{
-        create(name = "KmpArticleDatabase"){
+sqldelight {
+    databases {
+        create(name = "KmpArticleDatabase") {
             packageName.set("me.project.kmparticle.db")
         }
     }

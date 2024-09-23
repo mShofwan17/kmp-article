@@ -3,32 +3,16 @@ import shared
 
 struct ContentView: View {
 
-    @State private var shouldOpenAbout = false
-
     var body: some View {
-        let articlesScreen = ArticlesScreen(viewModel: .init())
-        NavigationStack{
-            ArticlesScreen(viewModel: .init())
-                .toolbar {
-                    ToolbarItem {
-                        Button {
-                            shouldOpenAbout = true
-                        } label: {
-                            Label("About", systemImage: "info.circle").labelStyle(.titleAndIcon)
-                        }
-                        .popover(isPresented: $shouldOpenAbout) {
-                            AboutScreen()
-                        }
-                    }
-                }
-        }.refreshable {
-            articlesScreen.viewModel.articlesViewModel.getArticles(forceFetch: true)
-        }
+        ComposeView().ignoresSafeArea(.keyboard)
     }
 }
 
-struct ContentView_Previews: PreviewProvider {
-	static var previews: some View {
-		ContentView()
-	}
+struct ComposeView: UIViewControllerRepresentable {
+    
+    func makeUIViewController(context: Context) ->  UIViewController {
+        MainIOSKt.MainViewController()
+    }
+    
+    func updateUIViewController(_ uiViewController: UIViewControllerType, context: Context) {}
 }

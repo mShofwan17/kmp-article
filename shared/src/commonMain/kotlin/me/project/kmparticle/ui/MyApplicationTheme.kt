@@ -1,4 +1,4 @@
-package me.project.kmparticle.android
+package me.project.kmparticle.ui
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.shape.RoundedCornerShape
